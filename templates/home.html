@@ -1,51 +1,20 @@
 {% extends 'layout.html' %}
 
-
 {% block head %}
-    
 {% endblock head %}
-    
-
 
 {% block stylesheet%}
-
-.Result {
-    text-align: center;
-    font-size: 25px;
-    background-color: gray;
-    transparancy: 50%;
-    border: 1px solid black;
-    border-radius: 10%;
-    margin: 20%;
-}
-
-.Results {
-    justify-content: center;
-    font-size: 25px;
-    transparancy: 50%;
-}
-
-img {
-    max-width: 200px;
-    border: 2px solid red;
-}
-
-
 {% endblock stylesheet %}
-
 
 <!-------------------------------------------------------------------------------------->
 
 {% block main %}
 
-    {% for item in items%}
-    <div class="Results">
-        <div class="Result">
-            <h1> {{item.name}} </h1>
-            <h3>{{item.marks}}</h3>
-            <h3>{{item.class}}</h3>
-            <a href='{{item.link}}'><img src="{{item.pic}}" alt="{{item.name}}" style="width:150px; height:150px;"></a>
-        </div>
-    </div>
-    {% endfor %}
+{% for item in items %}
+<div class="result">
+    <h1>{{ item.name }}</h1>
+    <img src="{{ item.pic }}" alt="{{ item.name }}" width=150px height=150px class="Image">
+</div>
+{% endfor %}
+
 {% endblock main %}
