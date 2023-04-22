@@ -1,20 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="30;url=http://127.0.0.1:5000/memes">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="C:\Users\Shahzeb\Desktop\Python Projects\Flask\templates\style.css">
-    <title>Meme Website</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+    
+
+{% block head %}
+    <meta http-equiv="refresh" content="30;url=http://127.0.0.1/Memes">
+{% endblock head %}
+    
+
+{% block stylesheet %}
+    .image {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+    .Image {
+        margin: 0 auto;
+        max-width: 600px;
+    }
+{% endblock stylesheet %}
+    
+
+
+{% block main %}
     <div class="Image">
-        <img src="{{subreddit}}" alt="meme pic">
+        <img class="image" src="{{subreddit}}" alt="meme pic">
     </div>
     <script>
         document.addEventListener('click', function() { 
         location.reload();
         });
     </script>
-</body>
-</html>
+{% endblock main %}
