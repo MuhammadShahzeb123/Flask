@@ -1,5 +1,3 @@
-import requests
-import json
 import openai
 import os
 import GPT_Key
