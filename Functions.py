@@ -1,6 +1,9 @@
 import openai
 import os
 import GPT_Key
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 openai.api_key = GPT_Key.key
 
@@ -32,6 +35,29 @@ class ChatGPT:
             log.write("\n\n\n")
             log.close()
         os.system("move *.log /logs")
+
+class RegistrationAndLogin(FlaskForm):
+    def signup() -> None:
+        username = SubmitField("Username", validators=[DataRequired(), Length(min=2, max=29)])
+        email = SubmitField("Email", validators=[DataRequired(), Email()])
+        password = SubmitField("Password", validators=[DataRequired()])
+        confirm_password = SubmitField("Confirm Password", validators=[DataRequired(), EqualTo()])
+        
+        submit = SubmitField("Sign Up")
+
+    def login() -> None:
+        email = SubmitField("Email", validators=[DataRequired(), Email()])
+        password = SubmitField("Password", validators=[DataRequired()])
+        remember = BooleanField('Remember Me')
+        submit = SubmitField('Login')
+
+
+
+
+
+
+
+
 
 # Data i.e Lists, Sets, Other Stuff
 
