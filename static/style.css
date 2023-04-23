@@ -34,4 +34,14 @@
     display: flex;
     justify-content: flex-end;
 }
-	
+
+.form-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+.form-heading {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}

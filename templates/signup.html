@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+{% endblock head %}
+
+{% block stylesheet%}
+.nav-70 {
+    max-width: 70%;
+}
+
+.custom-fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+{% endblock stylesheet %}
+
+{% block main %}
+<div class="login-form">
+    <fieldset class="form-group custom-fieldset">
+        <h2 class="form-heading">Sign Up</h2>
+        {{  forms.hidden_tag()}}
+        <div class="col-md-8">
+            <form methods="POST" action="">
+                <div>
+                    <div class="form-group">
+                        {{  forms.username.label(class="form-control-lable") }}
+                        {{  forms.username(class="form-control form-control-lg") }}
+                    </div>
+                    <div class="form-group">
+                        {{  forms.email.label(class="form-control-lable") }}
+                        {{  forms.email(class="form-control form-control-lg") }}
+                    </div>
+                    <div class="form-group">
+                        {{  forms.password.label(class="form-control-lable") }}
+                        {{  forms.password(class="form-control form-control-lg") }}
+                    </div>
+                    <div class="form-group">
+                        {{  forms.confirm_password.label(class="form-control-lable") }}
+                        {{  forms.confirm_password(class="form-control form-control-md") }}
+                    </div>
+                    <div class="form-group">
+                        <span>{{  forms.remember.label(class="form-control-lable")}}</span>
+                        <span>{{  forms.remember(class="ml-2 form-control-md")}}</span>
+                    </div>
+                    <div>
+                        {{  forms.submit(class="btn btn-primary")}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+</div>
+{% endblock main %}

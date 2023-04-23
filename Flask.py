@@ -1,17 +1,15 @@
 from flask import Flask, render_template, url_for
-import Functions
-
+from Functions import LoginForm, RegistrationForm
+import Data
 
 root = Flask(__name__)
 
+root.config['SECRET_KEY'] = '0b582cabd95b82f5ec0f4061826b4c36'
+
 @root.route("/Home")
 def Home():
-    return render_template('home.html', title="HOME", items=Functions.dummy, content="Hello World")
+    return render_template('home.html', title="HOME", items=Data.dummy, content="Hello World")
 
-
-@root.route("/Layout")
-def Layout():
-    return render_template('layout.html', title="Layout", items=Functions.dummy)
 
 @root.route("/About")
 def about():
@@ -19,11 +17,12 @@ def about():
 
 @root.route("/login")
 def login():
-    return "<h1>Under Progress</h1><div style='font-weight: bold; font-size: 20px; color: red'><a href='/Home'>Go Home</a></div>"
+    form = LoginForm()
+    return render_template('login.html', title="Login", forms=form)
 
 @root.route("/signup")
 def signup():
-    return "<h1>Under Progress</h1><div style='font-weight: bold; font-size: 20px; color: red'><a href='/Home'>Go Home</a></div>"
-
+    form = RegistrationForm()
+    return render_template('signup.html', title="Signup", forms=form)
 
 root.run(host='0.0.0.0', port=80, debug=True)

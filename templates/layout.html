@@ -11,43 +11,14 @@
             <title>...</title>
         {% endif %}
         <meta name="description" content="{{content}}">
+        <link red="stylesheet" type="text/css" href="url_for('static', filename='style.css')">
         <style type="text/css">
-            .navbar {
-                display: flex;
-                justify-content: space-between;
-                height: 60px;
-                background-color: #c4ffc7;
-                font-weight: bolder;
-            }
             
-            .logo {
-                font-size: 130%;
-                padding-bottom: 0.8%;
-                padding-right: 0.3%;
-            }
-            
-            .navbar a {
-                color: #333;
-                margin: 0 10px;
-            }
-            
-            .navbar a:hover {
-                color: #c00808;
-                margin: 0 10px;
-            }
-            
-            .navbar .nav-items-left {
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
-                flex-grow: 1;
-            }
-            
-            .navbar .nav-items-right {
-                display: flex;
-                justify-content: flex-end;
-            }
-                </style>
+            {% block stylesheet %}
+                
+            {% endblock stylesheet %}
+                
+        </style>
             
             <link rel="stylesheet" href="/static/style.css">
     </head>
@@ -55,7 +26,7 @@
         <nav class="navbar">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="#" class="navbar-brand">My Website</a>
+                    <a href="/Home" class="navbar-brand">My Website</a>
                 </div>
                 <div class="nav-items-left">
                     <a href="/Home">Home</a>
