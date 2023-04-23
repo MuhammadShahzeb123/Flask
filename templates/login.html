@@ -2,40 +2,33 @@
 
 {% block head %}
 {% endblock head %}
-
-{% block stylesheet%}
-.Legend {
-    font-size:30px;
-    font-color: red;
-    margin: 2px
-}
-{% endblock stylesheet %}
-
 <!-------------------------------------------------------------------------------------->
 
 {% block main %}
-    <div class="login-form mt-4">
-        {{  forms.hidden_feild }}
-        {{  forms.hidden_tag()}}
-        <div class="col-md-8">
-            <fieldset class="form-container">
-                <legend class="Legend">Login</legend>
-                <div class="form-group">
-                    {{  forms.email.label(class="form-control-lable") }}
+<div class="login-form mt-4">
+    {{  forms.hidden_tag()}}
+    <div class="col-md-8">
+        <fieldset class="form-container">
+            <legend class="Legend">Login</legend>
+            <form method="POST" action="{{ url_for('login') }}" class="form-group">
+                {{  forms.csrf_token() }}
+                <div class="form-group pd-1">
+                    {{  forms.email.label(class="form-control-lable text") }}
                     {{  forms.email(class="form-control form-control-lg") }}
                 </div>
-                <div class="form-group">
-                    {{  forms.password.label(class="form-control-lable") }}
+                <div class="form-group pd-1">
+                    {{  forms.password.label(class="form-control-lable text") }}
                     {{  forms.password(class="form-control form-control-lg") }}
                 </div>
-                <div class="form-group">
-                    {{  forms.forget_password.label(class="form-control-lable") }}
-                    {{  forms.forget_password(class="ml-2 form-control-md") }}
+                <div class="form-group pd-1">
+                    {{  forms.remember.label(class="form-check-label text") }}
+                    {{  forms.remember(class="form-check-input ml-4") }}
                 </div>
                 <div>
-                    {{  forms.submit(class="btn btn-primary btn-block")}}
+                    {{  forms.submit(class="btn btn-primary bttn")}}
                 </div>
-            </fieldset>
-        </div>
+            </form>
+        </fieldset>
     </div>
+</div>
 {% endblock main %}

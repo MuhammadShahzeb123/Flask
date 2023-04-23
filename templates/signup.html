@@ -3,52 +3,40 @@
 {% block head %}
 {% endblock head %}
 
-{% block stylesheet%}
-.nav-70 {
-    max-width: 70%;
-}
-
-.custom-fieldset {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-{% endblock stylesheet %}
 
 {% block main %}
-<div class="login-form">
-    <fieldset class="form-group custom-fieldset">
-        <h2 class="form-heading">Sign Up</h2>
-        {{  forms.hidden_tag()}}
-        <div class="col-md-8">
-            <form methods="POST" action="">
+<div class="login-form mt-4">
+    {{  forms.hidden_tag()}}
+    <div class="col-md-8">
+        <fieldset class="form-container">
+            <legend class="Legend">Sign Up</legend>
+            <form method="POST" action="{{ url_for('signup') }}" class="form-group">
+                {{  forms.csrf_token() }}
+                <div class="form-group pd-1">
+                    {{  forms.username.label(class="form-control-lable text") }}
+                    {{  forms.username(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group pd-1">
+                    {{  forms.email.label(class="form-control-lable text") }}
+                    {{  forms.email(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group pd-1">
+                    {{  forms.password.label(class="form-control-lable text") }}
+                    {{  forms.password(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group pd-1">
+                    {{  forms.confirm_password.label(class="form-control-lable text") }}
+                    {{  forms.confirm_password(class="form-control form-control-md") }}
+                </div>
+                <div class="form-group pd-1">
+                    {{  forms.remember.label(class="form-control-lable text")}}
+                    {{  forms.remember(class="ml-2 form-control-md")}}
+                </div>
                 <div>
-                    <div class="form-group">
-                        {{  forms.username.label(class="form-control-lable") }}
-                        {{  forms.username(class="form-control form-control-lg") }}
-                    </div>
-                    <div class="form-group">
-                        {{  forms.email.label(class="form-control-lable") }}
-                        {{  forms.email(class="form-control form-control-lg") }}
-                    </div>
-                    <div class="form-group">
-                        {{  forms.password.label(class="form-control-lable") }}
-                        {{  forms.password(class="form-control form-control-lg") }}
-                    </div>
-                    <div class="form-group">
-                        {{  forms.confirm_password.label(class="form-control-lable") }}
-                        {{  forms.confirm_password(class="form-control form-control-md") }}
-                    </div>
-                    <div class="form-group">
-                        <span>{{  forms.remember.label(class="form-control-lable")}}</span>
-                        <span>{{  forms.remember(class="ml-2 form-control-md")}}</span>
-                    </div>
-                    <div>
-                        {{  forms.submit(class="btn btn-primary")}}
-                    </div>
+                    {{  forms.submit(class="btn btn-primary bttn")}}
                 </div>
             </form>
-        </div>
-    </fieldset>
+        </fieldset>
+    </div>
 </div>
 {% endblock main %}

@@ -19,7 +19,7 @@
 }
 
 .navbar a:hover {
-    color: #c00808;
+    color: #c23308fd;
     margin: 0 10px;
 }
 
@@ -44,4 +44,23 @@
     margin-bottom: 20px;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
+}
+.Legend {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.text {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.text:hover {
+    color: #c4ffc7;
+    background-color: #333;
+}
+
+.bttn:hover {
+    color: #c4ffc7;
+    background-color: #333;
 }

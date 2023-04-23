@@ -15,12 +15,12 @@ def Home():
 def about():
     return render_template('about.html', title="About")
 
-@root.route("/login")
+@root.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     return render_template('login.html', title="Login", forms=form)
 
-@root.route("/signup")
+@root.route("/signup", methods=["GET", "POST"])
 def signup():
     form = RegistrationForm()
     return render_template('signup.html', title="Signup", forms=form)
