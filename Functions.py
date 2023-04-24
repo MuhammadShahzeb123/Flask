@@ -15,7 +15,6 @@ class RegistrationForm(FlaskForm):
                                                                         EqualTo(password)])
         submit = SubmitField("Sign Up")
         remember = BooleanField('Remember Me')
-        hidden_field = HiddenField()
 
 class LoginForm(FlaskForm):
         email = StringField("Email", validators=[DataRequired(), Email()])
