@@ -55,12 +55,11 @@
     font-weight: bold;
 }
 
-.text:hover {
-    color: #c4ffc7;
-    background-color: #333;
-}
 
-.bttn:hover {
-    color: #c4ffc7;
-    background-color: #333;
+.data {
+    font-size: 15px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
 }

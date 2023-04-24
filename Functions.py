@@ -70,9 +70,9 @@ class DataBase:
         Session = sessionmaker(bind=Engine)
         session = Session()
 
-        def signup(self, username, email, password) -> None:
+        def signup(self, username, email, password) -> str:
                 User_Data_Query = self.session.query(self.User).filter_by(email=email).first()
-                if User_Data_Query.email == email:
+                if User_Data_Query is not None and User_Data_Query.email == email:
                         return "Already signed up"
                 else:
                         User_Data = self.User(username=username, email=email, password=password)
@@ -81,9 +81,9 @@ class DataBase:
                         return "Signed up"
 
                 
-        def login(self, email, password) -> bool:
+        def login(self, email, password) -> str:
                 User_Data_Query = self.session.query(self.User).filter_by(email=email).first()
                 if User_Data_Query.email == email and User_Data_Query.password == password:
-                        return True
+                        return "Logged in successfully"
                 else:
-                        return False
+                        return "Failed! Email or Password incorrect"

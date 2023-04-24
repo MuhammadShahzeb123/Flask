@@ -26,14 +26,19 @@
                 </div>
                 <div class="form-group pd-1">
                     {{  forms.confirm_password.label(class="form-control-lable text") }}
-                    {{  forms.confirm_password(class="form-control form-control-md") }}
+                    {{  forms.confirm_password(class="form-control form-control-lg") }}
                 </div>
                 <div class="form-group pd-1">
                     {{  forms.remember.label(class="form-control-lable text")}}
                     {{  forms.remember(class="ml-2 form-control-md")}}
                 </div>
-                <div>
+                <div class="form-group pd-1">
                     {{  forms.submit(class="btn btn-primary bttn")}}
+                    <span class="data">
+                    {% if data != None %}
+                        {{ data }}
+                    {% endif %}
+                    </span>
                 </div>
             </form>
         </fieldset>

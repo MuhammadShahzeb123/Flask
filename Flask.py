@@ -19,28 +19,30 @@ def about():
 
 @root.route("/login", methods=["GET", "POST"])
 def login():
+    Returning_Value = None
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
-        remember = request.form.get("remember")
-        print(email, password,)
-        # database.login(email, password)
+        Returning_Value = database.login(email, password)
+    
     form = LoginForm()
-    return render_template('login.html', title="Login", forms=form)
+    return render_template('login.html', title="Login", forms=form, data=Returning_Value)
 
 @root.route("/signup", methods=["GET", "POST"])
 def signup():
+    Returning_Value = None
     if request.method == "POST":
         username = request.form.get("username")
         email = request.form.get("email")
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
-        remember = request.form.get("remember")
-    
-        database.signup(username, email, password)
+        if password == confirm_password:
+            Returning_Value = database.signup(username, email, password)
+        else:
+            Returning_Value = "Password does not match"
     
     form = RegistrationForm()
-    return render_template('signup.html', title="Signup", forms=form)
+    return render_template('signup.html', title="Signup", forms=form, data=Returning_Value)
 
 if __name__ == "__main__":
     root.run(host='0.0.0.0', port=80, debug=True)

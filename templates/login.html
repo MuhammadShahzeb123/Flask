@@ -24,8 +24,13 @@
                     {{  forms.remember.label(class="form-check-label text") }}
                     {{  forms.remember(class="form-check-input ml-4") }}
                 </div>
-                <div>
+                <div class="form-group pd-1">
                     {{  forms.submit(class="btn btn-primary bttn")}}
+                    <span class="data">
+                    {% if data != None %}
+                        {{ data }}
+                    {% endif %}
+                    </span>
                 </div>
             </form>
         </fieldset>
