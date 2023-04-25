@@ -19,7 +19,7 @@ def about():
 
 @root.route("/login")
 def login():
-    return "<h1>Under Progress</h1><div style='font-weight: bold; font-size: 20px; color: red'><a href='/Home'>Go Home</a></div>"
+    form = Functions.RegistrationAndLogin()
 
 @root.route("/signup")
 def signup():
