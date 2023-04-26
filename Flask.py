@@ -30,7 +30,7 @@ def login():
         print(Returning_Value)
 
     form = LoginForm()
-    return render_template('login.html', title="Login", forms=form)
+    return render_template('login.html', title="Login", form=form)
 
 @root.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -44,9 +44,14 @@ def signup():
             Returning_Value = database.signup(username, email, password)
         else:
             Returning_Value = False
-        print(Returning_Value)
     form = RegistrationForm()
-    return render_template('signup.html', title="Signup", forms=form)
+    if request.method == "POST":
+        print(Returning_Value)
+        print(form.username.errors)
+        print(form.email.errors)
+        print(form.password.errors)
+        print(form.confirm_password.errors)
+    return render_template('signup.html', title="Signup", form=form)
 
 if __name__ == "__main__":
     root.run(host='0.0.0.0', port=80, debug=True)
