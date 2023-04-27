@@ -5,38 +5,59 @@
 <!-------------------------------------------------------------------------------------->
 
 {% block main %}
-<div class="login-form mt-4">
+<div class="login-form">
     {{  form.hidden_tag()}}
-    <div class="col-md-8">
-        <fieldset class="form-container">
-            <legend class="Legend">Login</legend>
-            <form method="POST" action="{{ url_for('login') }}" class="form-group">
-                {{  form.csrf_token() }}
-                <div class="form-group pd-1">
-                    {{  form.email.label(class="form-control-lable text") }}
-                    {{  form.email(class="form-control form-control-lg") }}
-                </div>
-                <div class="form-group pd-1">
-                    {{  form.password.label(class="form-control-lable text") }}
-                    {{  form.password(class="form-control form-control-lg") }}
-                </div>
-                <div class="form-group pd-1">
-                    {{  form.remember.label(class="form-check-label text") }}
-                    {{  form.remember(class="form-check-input ml-4") }}
-                </div>
-                <div class="form-group mt-2 d-flex justify-content-between align-items-center">
-                    <span>
-                        {{  form.submit(class="btn btn-primary bttn")}}
-                        {% if data != None %}
-                            <span class="data">{{ data }}</span>
+    <div class="row">
+        <div class="col-md-8">
+            <fieldset class="form-container">
+                <legend class="Legend">Login</legend>
+                <form method="POST" action="{{ url_for('login') }}" class="form-group">
+                    {{  form.csrf_token() }}
+                    <div class="form-group pd-1">
+                        {{ form.email.label(class="form-control-label text") }}
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control form-control-lg") }}
                         {% endif %}
-                    </span>
-                    <small class="text-muted mr-4 ml-auto">
-                        <a href="{{ url_for('signup') }}">Don't have an Account? Sign Up!</a>
-                    </small>
-                </div>
-            </form>
-        </fieldset>
+                    </div>
+                    <div class="form-group pd-1">
+                        {{ form.password.label(class="form-control-label text") }}
+                        {% if form.password.errors %}
+                            {{ form.password(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.password(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group pd-1">
+                        {{  form.remember.label(class="form-check-label text") }}
+                        {{  form.remember(class="form-check-input ml-4") }}
+                    </div>
+                    <div class="form-group mt-2 d-flex justify-content-between align-items-center">
+                        <span>
+                            {{  form.submit(class="btn btn-primary")}}
+                            {% if data != None %}
+                                <span class="data">{{ data }}</span>
+                            {% endif %}
+                        </span>
+                        <small class="text-muted mr-4 ml-auto">
+                            <span>Don't have an Account?</span>
+                            <a class="link" href="{{ url_for('signup') }}">Sign Up!</a>
+                        </small>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
     </div>
 </div>
 {% endblock main %}

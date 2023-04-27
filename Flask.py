@@ -4,28 +4,32 @@ import Data
 
 database = DataBase()
 root = Flask(__name__)
-
+user = "Shahzeb"
 root.config['SECRET_KEY'] = '0b582cabd95b82f5ec0f4061826b4c36'
 
 @root.route("/home")
 def home():
-    return render_template('home.html', title="HOME", items=Data.dummy, content="Hello World")
+    return render_template('home.html', title="HOME", items=Data.dummy, content="Hello World", user=user)
 
 
 @root.route("/about")
 def about():
-    return render_template('about.html', title="About")
+    return render_template('about.html', title="About", user=user)
 
 @root.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     Returning_Value = None
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
-        Returning_Value = database.login(email, password)
-        print(Returning_Value)
-    return render_template('login.html', title="Login", form=form)
+        if form.validate_on_submit():
+            email = request.form.get("email")
+            password = request.form.get("password")
+            Returning_Value = database.login(email, password)
+            print(Returning_Value)
+            if Returning_Value == True:
+                flash('Logged in Successfully', 'success')
+                return redirect(url_for('home'))  
+    return render_template('login.html', title="Login", form=form, user=user)
 
 @root.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -47,7 +51,7 @@ def signup():
             flash('Account created successfully!', 'success')
             return redirect(url_for('home'))    
     print(Returning_Value)
-    return render_template('signup.html', title="Signup", form=form)
+    return render_template('signup.html', title="Signup", form=form, user=user)
 
 if __name__ == "__main__":
     root.run(host='0.0.0.0', port=80, debug=True)
