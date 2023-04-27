@@ -1,15 +1,11 @@
 from flask import Flask, render_template, url_for, request
 from Functions import LoginForm, RegistrationForm, DataBase
 import Data
-import logging
 
 database = DataBase()
 root = Flask(__name__)
 
 root.config['SECRET_KEY'] = '0b582cabd95b82f5ec0f4061826b4c36'
-root.config['PROPAGATE_EXCEPTIONS'] = True
-root.logger.addHandler(logging.NullHandler())
-
 
 @root.route("/home")
 def home():
