@@ -32,18 +32,21 @@ def signup():
     form = RegistrationForm()
     Returning_Value = None
     if request.method == "POST":
+        first_name = request.form.get("first_name")
+        last_name = request.form.get("last_name")
         username = request.form.get("username")
         email = request.form.get("email")
         password = request.form.get("password")
         confirm_password = request.form.get("confirm_password")
-        if password == confirm_password:
-            Returning_Value = database.signup(username, email, password)
-        else:
-            Returning_Value = False
         if form.validate_on_submit():
+            if password == confirm_password:
+                Returning_Value = database.signup(first_name, last_name, username, email, password)
+            else:
+                Returning_Value = False 
+            print(Returning_Value)
             flash('Account created successfully!', 'success')
-            return redirect(url_for('home'))          
-
+            return redirect(url_for('home'))    
+    print(Returning_Value)
     return render_template('signup.html', title="Signup", form=form)
 
 if __name__ == "__main__":
