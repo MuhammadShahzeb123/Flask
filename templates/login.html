@@ -6,31 +6,34 @@
 
 {% block main %}
 <div class="login-form mt-4">
-    {{  forms.hidden_tag()}}
+    {{  form.hidden_tag()}}
     <div class="col-md-8">
         <fieldset class="form-container">
             <legend class="Legend">Login</legend>
             <form method="POST" action="{{ url_for('login') }}" class="form-group">
-                {{  forms.csrf_token() }}
+                {{  form.csrf_token() }}
                 <div class="form-group pd-1">
-                    {{  forms.email.label(class="form-control-lable text") }}
-                    {{  forms.email(class="form-control form-control-lg") }}
+                    {{  form.email.label(class="form-control-lable text") }}
+                    {{  form.email(class="form-control form-control-lg") }}
                 </div>
                 <div class="form-group pd-1">
-                    {{  forms.password.label(class="form-control-lable text") }}
-                    {{  forms.password(class="form-control form-control-lg") }}
+                    {{  form.password.label(class="form-control-lable text") }}
+                    {{  form.password(class="form-control form-control-lg") }}
                 </div>
                 <div class="form-group pd-1">
-                    {{  forms.remember.label(class="form-check-label text") }}
-                    {{  forms.remember(class="form-check-input ml-4") }}
+                    {{  form.remember.label(class="form-check-label text") }}
+                    {{  form.remember(class="form-check-input ml-4") }}
                 </div>
-                <div class="form-group pd-1">
-                    {{  forms.submit(class="btn btn-primary bttn")}}
-                    <span class="data">
-                    {% if data != None %}
-                        {{ data }}
-                    {% endif %}
+                <div class="form-group mt-2 d-flex justify-content-between align-items-center">
+                    <span>
+                        {{  form.submit(class="btn btn-primary bttn")}}
+                        {% if data != None %}
+                            <span class="data">{{ data }}</span>
+                        {% endif %}
                     </span>
+                    <small class="text-muted mr-4 ml-auto">
+                        <a href="{{ url_for('signup') }}">Don't have an Account? Sign Up!</a>
+                    </small>
                 </div>
             </form>
         </fieldset>

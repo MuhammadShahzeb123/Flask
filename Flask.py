@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, flash, redirect
 from Functions import LoginForm, RegistrationForm, DataBase
 import Data
 import logging
@@ -22,18 +22,18 @@ def about():
 
 @root.route("/login", methods=["GET", "POST"])
 def login():
+    form = LoginForm()
     Returning_Value = None
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
         Returning_Value = database.login(email, password)
         print(Returning_Value)
-
-    form = LoginForm()
-    return render_template('login.html', title="Login", forms=form)
+    return render_template('login.html', title="Login", form=form)
 
 @root.route("/signup", methods=["GET", "POST"])
 def signup():
+    form = RegistrationForm()
     Returning_Value = None
     if request.method == "POST":
         username = request.form.get("username")
@@ -44,9 +44,11 @@ def signup():
             Returning_Value = database.signup(username, email, password)
         else:
             Returning_Value = False
-        print(Returning_Value)
-    form = RegistrationForm()
-    return render_template('signup.html', title="Signup", forms=form)
+        if form.validate_on_submit():
+            flash('Account created successfully!', 'success')
+            return redirect(url_for('home'))          
+
+    return render_template('signup.html', title="Signup", form=form)
 
 if __name__ == "__main__":
     root.run(host='0.0.0.0', port=80, debug=True)
