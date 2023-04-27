@@ -29,6 +29,8 @@ def login():
             if Returning_Value == True:
                 flash('Logged in Successfully', 'success')
                 return redirect(url_for('home'))  
+            else:
+                flash('Login Failed', 'danger')
     return render_template('login.html', title="Login", form=form, user=user)
 
 @root.route("/signup", methods=["GET", "POST"])
@@ -45,11 +47,15 @@ def signup():
         if form.validate_on_submit():
             if password == confirm_password:
                 Returning_Value = database.signup(first_name, last_name, username, email, password)
+                if Returning_Value == True:
+                    flash('Account created successfully!', 'success')
+                    return redirect(url_for('home'))   
+                else:
+                    flash('Account Creation Unsuccessful', 'danger')
+                    return redirect(url_for('signup')) 
             else:
-                Returning_Value = False 
-            print(Returning_Value)
-            flash('Account created successfully!', 'success')
-            return redirect(url_for('home'))    
+                Returning_Value = False
+                print(Returning_Value)
     print(Returning_Value)
     return render_template('signup.html', title="Signup", form=form, user=user)
 

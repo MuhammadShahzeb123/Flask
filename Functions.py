@@ -52,7 +52,7 @@ class DataBase:
                 return True
 
         def login(self, email: str, password: str) -> bool:
-                hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
+                # hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
                 User_Data_Query = self.session.query(self.User).filter_by(email=email).first()
-                return (User_Data_Query is not None and User_Data_Query.email == email and User_Data_Query.password == hashed_password)
+                return (User_Data_Query is not None and User_Data_Query.email == email and User_Data_Query.password == password)
 
