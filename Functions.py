@@ -12,7 +12,7 @@ class RegistrationForm(FlaskForm):
         username = StringField("Username", validators=[DataRequired(),Length(min=2, max=20)])
         email = StringField("Email", validators=[DataRequired(), Email()])
         password = PasswordField("Password", validators=[DataRequired()])
-        confirm_password = PasswordField("Confirm Password", validators=[DataRequired(),EqualTo(password)])
+        confirm_password = PasswordField("Confirm Password", validators=[DataRequired(),EqualTo('password')])
         submit = SubmitField("Sign Up")
         remember = BooleanField('Remember Me')
 
@@ -43,18 +43,14 @@ class DataBase:
                 User_Data_Query = self.session.query(self.User).filter_by(email=email).first()
                 if User_Data_Query is not None and User_Data_Query.email == email:
                         return False
-                else:
-                        password = hashlib.sha256(password.encode("utf-8")).hexdigest()
-                        User_Data = self.User(username=username, email=email, password=password)
-                        self.session.add(User_Data)
-                        self.session.commit()
-                        return True
+                password = hashlib.sha256(password.encode("UTF-8")).hexdigest()
+                User_Data = self.User(username=username, email=email, password=password)
+                self.session.add(User_Data)
+                self.session.commit()
+                return True
 
         def login(self, email: str, password: str) -> bool:
-                hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
-                User_Data_Query = self.session.query(self.User).filter_by(email=email).first() 
-                if User_Data_Query is not None and User_Data_Query.email == email and User_Data_Query.password == hashed_password:
-                        return True
-                else:
-                        return False
+                hashed_password = hashlib.sha256(password.encode("UTF-8")).hexdigest()
+                User_Data_Query = self.session.query(self.User).filter_by(email=email).first()
+                return (User_Data_Query is not None and User_Data_Query.email == email and User_Data_Query.password == hashed_password)
 
