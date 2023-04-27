@@ -44,14 +44,14 @@ class DataBase:
                 if User_Data_Query is not None and User_Data_Query.email == email:
                         return False
                 else:
-                        password = hashlib.sha256(password.encode("UTF-8")).hexdigest()
+                        password = hashlib.sha256(password.encode("utf-8")).hexdigest()
                         User_Data = self.User(username=username, email=email, password=password)
                         self.session.add(User_Data)
                         self.session.commit()
                         return True
 
         def login(self, email: str, password: str) -> bool:
-                hashed_password = hashlib.sha256(password.encode("UTF-8")).hexdigest()
+                hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
                 User_Data_Query = self.session.query(self.User).filter_by(email=email).first() 
                 if User_Data_Query is not None and User_Data_Query.email == email and User_Data_Query.password == hashed_password:
                         return True
