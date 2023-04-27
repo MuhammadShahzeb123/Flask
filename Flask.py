@@ -4,17 +4,16 @@ import Data
 
 database = DataBase()
 root = Flask(__name__)
-user = "Shahzeb"
 root.config['SECRET_KEY'] = '0b582cabd95b82f5ec0f4061826b4c36'
 
 @root.route("/home")
 def home():
-    return render_template('home.html', title="HOME", items=Data.dummy, content="Hello World", user=user)
+    return render_template('home.html', title="HOME", items=Data.dummy, content="Hello World")
 
 
 @root.route("/about")
 def about():
-    return render_template('about.html', title="About", user=user)
+    return render_template('about.html', title="About")
 
 @root.route("/login", methods=["GET", "POST"])
 def login():
@@ -31,7 +30,7 @@ def login():
                 return redirect(url_for('home'))  
             else:
                 flash('Login Failed', 'danger')
-    return render_template('login.html', title="Login", form=form, user=user)
+    return render_template('login.html', title="Login", form=form)
 
 @root.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -57,7 +56,11 @@ def signup():
                 Returning_Value = False
                 print(Returning_Value)
     print(Returning_Value)
-    return render_template('signup.html', title="Signup", form=form, user=user)
+    return render_template('signup.html', title="Signup", form=form)
 
+
+@root.route('/gpt-4', methods=['GET', 'POST'])
+def gpt4():
+    return render_template('chatgpt.html', title="Chatgpt 4")
 if __name__ == "__main__":
     root.run(host='0.0.0.0', port=80, debug=True)

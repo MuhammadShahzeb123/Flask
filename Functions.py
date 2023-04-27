@@ -4,6 +4,10 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base
 import hashlib
+from GPT_Key import key
+import openai
+
+openai.api_key = key
 
 
 class RegistrationForm(FlaskForm):
@@ -36,6 +40,12 @@ class DataBase:
                 email = Column(String)
                 password = Column(String)
         
+        class Conversation(Base):
+                __tablename__ = "conversations"
+                role = Column(String, primary_key=True)
+                user = Column(String)
+                assistant = Column(String)
+        
         Base.metadata.create_all(Engine)
         
         Session = sessionmaker(bind=Engine)
@@ -45,14 +55,29 @@ class DataBase:
                 User_Data_Query = self.session.query(self.User).filter_by(email=email).first()
                 if User_Data_Query is not None and User_Data_Query.email == email:
                         return False
-                # password = hashlib.sha256(password.encode("utf-8")).hexdigest()
-                User_Data = self.User(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
+                hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
+                User_Data = self.User(first_name=first_name, last_name=last_name, username=username, email=email, password=hashed_password)
                 self.session.add(User_Data)
                 self.session.commit()
                 return True
 
         def login(self, email: str, password: str) -> bool:
-                # hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
+                hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
                 User_Data_Query = self.session.query(self.User).filter_by(email=email).first()
-                return (User_Data_Query is not None and User_Data_Query.email == email and User_Data_Query.password == password)
+                return (User_Data_Query is not None and User_Data_Query.email == email and User_Data_Query.password == hashed_password)
 
+class ChatGPT:
+        def __init__(self, role=None) -> None:
+                self.Messages =  [
+                        {"role": "system", "content": role}       
+                ]
+        
+        def ask(self, Q: str) -> str:
+                self.Messages.append({"role": "user", "content": Q})
+                
+                response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=self.Messages
+                )
+                self.Messages.append({"role": "assistant", "content": response["choices"][0]["message"]["content"]})
+                return response["choices"][0]["message"]["content"]
