@@ -101,5 +101,3 @@ class Messages:
                         assistant_message = ChatGPT().ask(user_message)
                         assistant_message_to_append = {'role': "assistant", 'content': assistant_message}
                         self.chat.append(assistant_message_to_append)
-
-
