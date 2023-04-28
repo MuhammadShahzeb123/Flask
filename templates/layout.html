@@ -6,6 +6,10 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="{{ url_for('static', filename='second.css') }}">
         <link rel="stylesheet" href="{{  url_for('static', filename='main.css')  }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo.ico') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
         {% if title %}
             <title>{{ title }}</title>
         {% else %}
@@ -16,17 +20,19 @@
     <body>
         <nav class="navbar">
             <div class="container">
-                <div class="navbar-header logo">
-                    <a href="/" class="navbar-brand">My Website</a>
+                <div class="logo-container">
+                    <div class="navbar-header logo">
+                        <a href="/" class="navbar-brand"><img src="{{ url_for('static', filename='logo.png') }}" alt="Zarzeb_Logo" width="50px" height="50px"></a>
+                    </div>
                 </div>
                 <div class="nav-items-left">
-                    <a href="/home">Home</a>
-                    <a href="/about">About</a>
-                    <a href="/gpt4">GPT Mod</a>
+                    <a href="/home" class="text" style="font-size: 25px;">Home</a>
+                    <a href="/about" class="text" style="font-size: 25px;">About</a>
+                    <a href="/gpt4" class="text" style="font-size: 25px;">GPT Mod</a>
                 </div>
                 <div class="nav-items-right">
-                    <a href="/login">Login</a>
-                    <a href="/signup">Signup</a>
+                    <a href="/login" class="text" style="font-size: 25px;">Login</a>
+                    <a href="/signup" class="text" style="font-size: 25px;">Signup</a>
                 </div>
             </div>
         </nav>

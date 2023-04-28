@@ -30,6 +30,8 @@ class LoginForm(FlaskForm):
 class ChatInput(FlaskForm):
         chat_input = TextAreaField("Input", validators=[DataRequired()], render_kw={"style": "height: 50px; max-height: 150px; resize: none; overflow-y: auto;"})
         submit = SubmitField("Send")
+        chat_input_2 = TextAreaField("Input", validators=[DataRequired()], render_kw={"style": "height: 50px; max-height: 150px; resize: none; overflow-y: auto;"})
+        submit_2 = SubmitField("Send")
 
 class DataBase:
         Engine = create_engine('sqlite:///Database.db') # It is the Instance that is used to create the database
@@ -72,24 +74,23 @@ class DataBase:
 
 class ChatGPT:
         def __init__(self) -> None:
-                self.chat_inputs =  [
+                self.messages =  [
                         {"role": "system", "content": "Assistive Chatbot that Help people with Their Problems"}       
                 ]
         
         def ask(self, Q: str) -> str:
-                self.chat_inputs.append({"role": "user", "content": Q})
-                
+                self.messages.append({"role": "user", "content": Q})
                 response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
-                chat_inputs=self.chat_inputs
+                messages=self.messages
                 )
-                self.chat_inputs.append({"role": "assistant", "content": response["choices"][0]["chat_input"]["content"]})
-                return response["choices"][0]["chat_input"]["content"]
-
+                self.messages.append({"role": "assistant", "content": response["choices"][0]["message"]["content"]})
+                return response["choices"][0]["message"]["content"]
 
 class Messages:
         def __init__(self) -> None:
                 self.chat: list = []
+                self.chat_2: list = []
         
         def chatting(self, user_message: str) -> None:
                 if "clear" == user_message:
@@ -100,3 +101,5 @@ class Messages:
                         assistant_message = ChatGPT().ask(user_message)
                         assistant_message_to_append = {'role': "assistant", 'content': assistant_message}
                         self.chat.append(assistant_message_to_append)
+
+
