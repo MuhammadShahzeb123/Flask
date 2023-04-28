@@ -7,7 +7,7 @@
 
 
 {% block main %}
-<fieldset class="form-container">
+<fieldset class="form-container mb-5">
     <legend class="Legend">GPT-4</legend>
     <div class="form-group pd-1">
         <form method="POST" action="{{ url_for('gpt4') }}">
@@ -18,12 +18,12 @@
                             {% if chat %}
                             {% for message in chat %}
                                 {% if message['role'] == "user" %}
-                                    <div class="text chat ml-2 mt-2 mr-2 mb-3" style="background-color: #ccc; color: #333">
+                                    <div class="text chat ml-2 mt-2 mr-2 mb-3">
                                         <span style="font-size: 30px;">You:</span> <span class="ml-2 mt-2 mr-2 mb-3"><pre>{{ message.get('content') }}</pre></span>
                                     </div>
                                 {% elif message['role'] == 'assistant' %}
-                                    <div class="text chat ml-2 mt-2 mr-2 mb-5" style="background-color: #333; color: #ccc">
-                                        <span style="font-size: 30px;">GPT-4:</span> <span class="ml-2 mt-2 mr-2 mb-3"><pre style="color: #ccc">{{ message.get('content') }}</pre></span>
+                                    <div class="text chat ml-2 mt-2 mr-2 mb-5">
+                                        <span style="font-size: 30px;">GPT-4:</span> <span class="ml-2 mt-2 mr-2 mb-3"><pre>{{ message.get('content') }}</pre></span>
                                     </div>
                                 {% endif %}
                             {% endfor %}

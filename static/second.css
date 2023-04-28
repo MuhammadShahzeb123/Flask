@@ -1,5 +1,5 @@
 body {
-    background-color: #ccc;
+    background-color: #ffffff;
 }
 
 .navbar {
@@ -7,7 +7,7 @@ body {
     justify-content: space-between;
     align-items: center; /* add this line to vertically center the logo and nav items */
     height: auto;
-    background-color: #58fa60;
+    background-color: #cbffd8;
     font-weight: bolder;
 }
 
@@ -133,6 +133,7 @@ body {
     border-radius: 10px;
     max-width: 100%;
     resize: none;
+    background-color: #cbffd8;
 }
 
 pre {
