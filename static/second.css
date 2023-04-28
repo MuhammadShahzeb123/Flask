@@ -17,6 +17,10 @@ body {
     padding-right: 0.3%;
 }
 
+.logo {
+    size: 150%;
+}
+
 .navbar a {
     color: #333;
     margin: 0 10px;
@@ -83,4 +87,32 @@ body {
 
 .link:hover {
     color: #c23308fd;
+}
+
+.bd {
+    border: 1px double #756b6b;
+    border-radius: 10px;
+
+}
+
+.input-display-container {
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+}
+
+.input-display {
+    width: 100%;
+    white-space: pre-wrap;
+}
+
+.button-container {
+    text-align: right;
+    margin-top: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    .button-container {
+        margin-top: 0px;
+    }
 }

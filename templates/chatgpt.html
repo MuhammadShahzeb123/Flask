@@ -1,12 +1,58 @@
+<!DOCTYPE html>
 {% extends 'layout.html' %}
-
 
 {% block head %}
 {% endblock head %}
 
-
 {% block main %}
-    <div class="col border">
-        
+<fieldset class="form-container">
+    <legend class="Legend">ChatGPT 1</legend>
+    <div class="form-group pd-1">
+        <form method="POST" action="{{ url_for('gpt4') }}">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="input-display-container" style="border: 0.01px solid #ccc; border-radius: 10px">
+                        <div>
+                            {% if messages %}
+                            {% for message in messages %}
+                            <span>
+                                {{ message }}
+                            </span>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-11 col-md-12">
+                    {% if form.chat_input.errors %}
+                        {{ form.chat_input(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.chat_input.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.chat_input(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="col-lg-1 col-md-12 mt-lg-1 text-lg-right">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </div>
+        </form>
     </div>
+</fieldset>
 {% endblock main %}
+
+{% block scripts %}
+<script>
+    const inputDisplay = document.querySelector("#input-display");
+    const chatInput = document.querySelector("#{{ form.chat_input.id }}");
+
+    chatInput.addEventListener("input", (event) => {
+        inputDisplay.innerText = event.target.value;
+    });
+</script>
+{% endblock scripts %}

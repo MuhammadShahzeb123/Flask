@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import sessionmaker, declarative_base
@@ -26,6 +26,10 @@ class LoginForm(FlaskForm):
         forget_password = BooleanField('Forgot Password?')
         remember = BooleanField('Remember Me')
         submit = SubmitField('Login')
+
+class ChatInput(FlaskForm):
+        chat_input = TextAreaField("Input", validators=[DataRequired()], render_kw={"style": "height: 50px; max-height: 150px; resize: none; overflow-y: auto;"})
+        submit = SubmitField("Send")
 
 class DataBase:
         Engine = create_engine('sqlite:///Database.db') # It is the Instance that is used to create the database
@@ -68,16 +72,16 @@ class DataBase:
 
 class ChatGPT:
         def __init__(self, role=None) -> None:
-                self.Messages =  [
+                self.chat_inputs =  [
                         {"role": "system", "content": role}       
                 ]
         
         def ask(self, Q: str) -> str:
-                self.Messages.append({"role": "user", "content": Q})
+                self.chat_inputs.append({"role": "user", "content": Q})
                 
                 response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
-                messages=self.Messages
+                chat_inputs=self.chat_inputs
                 )
-                self.Messages.append({"role": "assistant", "content": response["choices"][0]["message"]["content"]})
-                return response["choices"][0]["message"]["content"]
+                self.chat_inputs.append({"role": "assistant", "content": response["choices"][0]["chat_input"]["content"]})
+                return response["choices"][0]["chat_input"]["content"]
