@@ -13,11 +13,17 @@
                 <div class="col-md-12">
                     <div class="input-display-container" style="border: 0.01px solid #ccc; border-radius: 10px">
                         <div>
-                            {% if messages %}
-                            {% for message in messages %}
-                            <span>
-                                {{ message }}
-                            </span>
+                            {% if chat %}
+                            {% for message in chat %}
+                                {% if message['role'] == "user" %}
+                                    <div class="text" style="background-color: #ccc; color: #333">
+                                        {{ message.get('content') }}
+                                    </div>
+                                {% elif message['role'] == 'assistant' %}
+                                    <div class="text" style="background-color: #333; color: #ccc">
+                                        {{ message.get('content') }}
+                                    </div>
+                                {% endif %}
                             {% endfor %}
                             {% endif %}
                         </div>
@@ -45,14 +51,3 @@
     </div>
 </fieldset>
 {% endblock main %}
-
-{% block scripts %}
-<script>
-    const inputDisplay = document.querySelector("#input-display");
-    const chatInput = document.querySelector("#{{ form.chat_input.id }}");
-
-    chatInput.addEventListener("input", (event) => {
-        inputDisplay.innerText = event.target.value;
-    });
-</script>
-{% endblock scripts %}

@@ -71,9 +71,9 @@ class DataBase:
                 return (User_Data_Query is not None and User_Data_Query.email == email and User_Data_Query.password == hashed_password)
 
 class ChatGPT:
-        def __init__(self, role=None) -> None:
+        def __init__(self) -> None:
                 self.chat_inputs =  [
-                        {"role": "system", "content": role}       
+                        {"role": "system", "content": "Assistive Chatbot that Help people with Their Problems"}       
                 ]
         
         def ask(self, Q: str) -> str:
@@ -85,3 +85,18 @@ class ChatGPT:
                 )
                 self.chat_inputs.append({"role": "assistant", "content": response["choices"][0]["chat_input"]["content"]})
                 return response["choices"][0]["chat_input"]["content"]
+
+
+class Messages:
+        def __init__(self) -> None:
+                self.chat: list = []
+        
+        def chatting(self, user_message: str) -> None:
+                if "clear" == user_message:
+                        self.chat = []
+                else:
+                        user_message_to_append = {'role': "user", 'content': user_message}
+                        self.chat.append(user_message_to_append)
+                        assistant_message = ChatGPT().ask(user_message)
+                        assistant_message_to_append = {'role': "assistant", 'content': assistant_message}
+                        self.chat.append(assistant_message_to_append)
