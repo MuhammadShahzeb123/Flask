@@ -166,3 +166,7 @@ pre {
     bottom: 0;
     width: 100%;
 }
+
+.d-flex.justify-content-center.align-items-center .text {
+    font-size: 120%;
+}

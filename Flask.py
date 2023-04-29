@@ -76,7 +76,7 @@ def default():
 @root.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.clear()
-    return home()
+    return redirect('/')
 
 @root.route('/me', methods=['GET', 'POST'])
 def me():
