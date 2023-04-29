@@ -62,13 +62,4 @@ function scrollToBottom() {
 function clearInputField() {
     document.getElementById("chat_input").value = "";
 }
-
-const textarea = document.querySelector('textarea');
-textarea.addEventListener('keydown', (event) => {
-if (event.shiftKey && event.keyCode === 13) {
-    event.preventDefault(); 
-    const form = document.querySelector('form');
-    form.submit();
-}
-});
 {% endblock scripts %}

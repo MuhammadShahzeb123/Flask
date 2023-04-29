@@ -13,10 +13,6 @@ def home():
     return render_template('home.html', title="HOME", items=Data.dummy, content="Hello World", session=session)
 
 
-@root.route("/about")
-def about():
-    return render_template('about.html', title="About", session=session)
-
 @root.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
