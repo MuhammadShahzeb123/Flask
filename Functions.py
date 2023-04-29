@@ -30,8 +30,6 @@ class LoginForm(FlaskForm):
 class ChatInput(FlaskForm):
         chat_input = TextAreaField("Input", validators=[DataRequired()], render_kw={"style": "height: 50px; max-height: 150px; resize: none; overflow-y: auto;"})
         submit = SubmitField("Send")
-        chat_input_2 = TextAreaField("Input", validators=[DataRequired()], render_kw={"style": "height: 50px; max-height: 150px; resize: none; overflow-y: auto;"})
-        submit_2 = SubmitField("Send")
 
 class DataBase:
         Engine = create_engine('sqlite:///Database.db') # It is the Instance that is used to create the database

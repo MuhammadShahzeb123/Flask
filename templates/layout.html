@@ -17,7 +17,7 @@
         {% endif %}
         <meta name="description" content="{{content}}">
     </head>
-    <body onload="scrollToBottom()">
+    <body onload="{% block body %}{% endblock body %}">
         <nav class="navbar">
             <div class="container">
                 <div class="logo-container">

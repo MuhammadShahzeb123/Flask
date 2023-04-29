@@ -4,7 +4,7 @@
 {% block head %}
 {% endblock head %}
 
-
+{% block body %}scrollToBottom(); clearInputField(){% endblock body %}
 
 {% block main %}
 {% if session['username'] %}
@@ -35,7 +35,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-11 col-md-12">
-                        {{ form.chat_input(class="form-control form-control-lg", onload="clearInputField()", id="chat_input") }}
+                        {{ form.chat_input(class="form-control form-control-lg ", id="chat_input") }}
                 </div>
                 <div class="col-lg-1 col-md-12 mt-lg-1 text-lg-right">
                     {{ form.submit(class="btn btn-primary") }}
@@ -63,4 +63,12 @@ function clearInputField() {
     document.getElementById("chat_input").value = "";
 }
 
+const textarea = document.querySelector('textarea');
+textarea.addEventListener('keydown', (event) => {
+if (event.shiftKey && event.keyCode === 13) {
+    event.preventDefault(); 
+    const form = document.querySelector('form');
+    form.submit();
+}
+});
 {% endblock scripts %}

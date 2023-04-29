@@ -170,3 +170,8 @@ pre {
 .d-flex.justify-content-center.align-items-center .text {
     font-size: 120%;
 }
+
+.resize-none {
+    resize: none;
+    overflow: hidden;
+}
