@@ -27,7 +27,9 @@ def login():
             password = request.form.get("password")
             Returning_Value = database.login(email, password)
             if Returning_Value == True:
-                flash('Logged in Successfully', 'success')
+                
+                username = session['username'] = database.username_retriever(email)
+                flash(f'Logged in Successfully for {username}', 'success')
                 session['username'] = database.username_retriever(email)
                 return redirect(url_for('home'))
             else:
