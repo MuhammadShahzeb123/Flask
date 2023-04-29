@@ -72,6 +72,9 @@ class DataBase:
                 User_Data_Query = self.session.query(self.User).filter_by(email=email).first()
                 return (User_Data_Query is not None and User_Data_Query.email == email and User_Data_Query.password == hashed_password)
 
+        def username_retriever(self, email: str) -> str:
+                Username_Data_Query = self.session.query(self.User).filter_by(email=email).first()
+                return Username_Data_Query.username
 class ChatGPT:
         def __init__(self) -> None:
                 self.messages =  [

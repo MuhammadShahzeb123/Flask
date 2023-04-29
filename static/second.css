@@ -69,11 +69,13 @@ body {
 .Legend {
     font-weight: bold;
     font-size: 50px;
+    font-family: 'Share Tech Mono', monospace;
 }
 
 .Legend-2 {
     font-weight: bold;
     font-size: 25px;
+    font-family: 'Share Tech Mono', monospace;
 }
 
 .text {

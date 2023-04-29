@@ -31,8 +31,14 @@
                     <a href="/gpt4" class="text" style="font-size: 25px;">GPT Mod</a>
                 </div>
                 <div class="nav-items-right">
-                    <a href="/login" class="text" style="font-size: 25px;">Login</a>
-                    <a href="/signup" class="text" style="font-size: 25px;">Signup</a>
+                    
+                    {% if session['username'] %}
+                    <a href="{{ url_for('me') }}" class="text" style="font-size: 25px;">{{ session["username"] }}</a>
+                    
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="text" style="font-size: 25px;">Login</a>
+                    <a href="{{ url_for('signup') }}" class="text" style="font-size: 25px;">Signup</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
