@@ -64,7 +64,8 @@ def gpt4():
     if request.method == "POST":
         chat_input = request.form.get('chat_input')
         message.chatting(chat_input)
-    return render_template('chatgpt.html', title="Modified GPT-4", form=form, chat=message.chat, session=session)
+        print(message.chat)
+    return render_template('chatgpt.html', title="GPT-4", form=form, chat=message.chat, session=session)
 
 @root.route('/', methods=['GET', 'POST'])
 def default():

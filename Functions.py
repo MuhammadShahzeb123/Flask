@@ -91,7 +91,6 @@ class ChatGPT:
 class Messages:
         def __init__(self) -> None:
                 self.chat: list = []
-                self.chat_2: list = []
         
         def chatting(self, user_message: str) -> None:
                 if "clear" == user_message:
