@@ -2,10 +2,11 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 import hashlib
 from GPT_Key import key
 import openai
+from datetime import datetime
 
 openai.api_key = key
 
@@ -38,17 +39,18 @@ class DataBase:
         class User(Base):
                 __tablename__ = "users"
                 id = Column(Integer, primary_key=True)
-                first_name = Column(String)
-                last_name = Column(String)
-                username = Column(String)
-                email = Column(String)
-                password = Column(String)
+                first_name = Column(String, nullable=False, unique=True)
+                last_name = Column(String, nullable=False, unique=True)
+                username = Column(String, nullable=False, unique=True)
+                email = Column(String, nullable=False, unique=True)
+                password = Column(String, nullable=False, unique=True)
+                chat = relationship("conversations", backref="user", lazy=True)
         
         class Conversation(Base):
                 __tablename__ = "conversations"
-                role = Column(String, primary_key=True)
-                user = Column(String)
-                assistant = Column(String)
+                id = Column(Integer, primary_key=True)
+                messages = Column(String, nullable=False)
+                date_created = Column(String(), default=datetime.utcnow)
         
         Base.metadata.create_all(Engine)
         
@@ -56,9 +58,6 @@ class DataBase:
         session = Session()
 
         def signup(self, first_name: str, last_name:str, username: str, email: str, password: str) -> bool:
-                User_Data_Query = self.session.query(self.User).filter_by(email=email).first()
-                if User_Data_Query is not None and User_Data_Query.email == email:
-                        return False
                 hashed_password = hashlib.sha256(password.encode("utf-8")).hexdigest()
                 User_Data = self.User(first_name=first_name, last_name=last_name, username=username, email=email, password=hashed_password)
                 self.session.add(User_Data)

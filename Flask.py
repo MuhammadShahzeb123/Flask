@@ -42,9 +42,7 @@ def signup():
         username = request.form.get("username")
         email = request.form.get("email")
         password = request.form.get("password")
-        confirm_password = request.form.get("confirm_password")
         if form.validate_on_submit():
-            if password == confirm_password:
                 Returning_Value = database.signup(first_name, last_name, username, email, password)
                 if Returning_Value == True:
                     flash(f'Account created for {username}!', 'success')
@@ -52,9 +50,8 @@ def signup():
                     return redirect(url_for('home'))
                 else:
                     flash('Account Creation Unsuccessful', 'danger')
+                    Returning_Value = False
                     return redirect(url_for('signup'))
-            else:
-                Returning_Value = False
     return render_template('signup.html', title="Signup", form=form, session=session)
 
 
@@ -70,6 +67,7 @@ def gpt4():
 @root.route('/', methods=['GET', 'POST'])
 def default():
     return home()
+
 @root.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.clear()
