@@ -80,24 +80,15 @@ class ChatGPT:
                 ]
         
         def ask(self, Q: str) -> str:
-                self.messages.append({"role": "user", "content": Q})
-                response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=self.messages
-                )
-                self.messages.append({"role": "assistant", "content": response["choices"][0]["message"]["content"]})
-                return response["choices"][0]["message"]["content"]
-
-class Messages:
-        def __init__(self) -> None:
-                self.chat: list = []
-        
-        def chatting(self, user_message: str) -> None:
-                if "clear" == user_message:
-                        self.chat = []
+                if Q == "clear":
+                        self.messages =  [
+                                {"role": "system", "content": "Help people with their Problems and explain them briefly how to solve that with examples"}       
+                        ]
                 else:
-                        user_message_to_append = {'role': "user", 'content': user_message}
-                        self.chat.append(user_message_to_append)
-                        assistant_message = ChatGPT().ask(user_message)
-                        assistant_message_to_append = {'role': "assistant", 'content': assistant_message}
-                        self.chat.append(assistant_message_to_append)
+                        self.messages.append({"role": "user", "content": Q})
+                        response = openai.ChatCompletion.create(
+                        model="gpt-3.5-turbo",
+                        messages=self.messages
+                        )
+                        self.messages.append({"role": "assistant", "content": response["choices"][0]["message"]["content"]})
+                        return response["choices"][0]["message"]["content"]

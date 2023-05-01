@@ -175,3 +175,17 @@ pre {
     resize: none;
     overflow: hidden;
 }
+
+.chat-typing {
+    display: inline-block;
+    overflow: hidden;
+    animation: typing 2s steps(15, end) 1s forwards;
+}
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+    }

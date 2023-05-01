@@ -1,11 +1,11 @@
 from flask import Flask, render_template, url_for, request, flash, redirect, session
-from Functions import LoginForm, RegistrationForm, DataBase, ChatInput, Messages
+from Functions import LoginForm, RegistrationForm, DataBase, ChatInput, ChatGPT
 import Data
 
 database = DataBase()
 root = Flask(__name__)
 root.config['SECRET_KEY'] = '0b582cabd95b82f5ec0f4061826b4c36'
-message = Messages()
+gpt = ChatGPT()
 
 
 @root.route("/home")
@@ -63,9 +63,9 @@ def gpt4():
     form = ChatInput()
     if request.method == "POST":
         chat_input = request.form.get('chat_input')
-        message.chatting(chat_input)
-        print(message.chat)
-    return render_template('chatgpt.html', title="GPT-4", form=form, chat=message.chat, session=session)
+        gpt.ask(chat_input)
+        print(gpt.messages)
+    return render_template('chatgpt.html', title="GPT-4", form=form, chat=gpt.messages, session=session)
 
 @root.route('/', methods=['GET', 'POST'])
 def default():

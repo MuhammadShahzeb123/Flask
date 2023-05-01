@@ -4,52 +4,45 @@
 {% block head %}
 {% endblock head %}
 
-{% block body %}scrollToBottom(); clearInputField(){% endblock body %}
+{% block body %}scrollToBottom(); clearInputField();{% endblock body %}
 
 {% block main %}
 {% if session['username'] %}
-<fieldset class="form-container mb-5">
-    <legend class="Legend">GPT-4</legend>
-    <div class="form-group pd-1">
-        <form method="POST" action="{{ url_for('gpt4') }}">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="input-display-container">
-                        <div>
-                            {% if chat %}
-                                {% for message in chat %}
-                                    {% if message['role'] == "user" %}
-                                        <div class="text chat ml-2 mt-2 mr-2 mb-3">
-                                            <span style="font-size: 30px;">You:</span> <span class="ml-2 mt-2 mr-2 mb-3"><pre>{{ message.get('content') }}</pre></span>
-                                        </div>
-                                    {% elif message['role'] == 'assistant' %}
-                                        <div class="text chat ml-2 mt-2 mr-2 mb-5">
-                                            <span style="font-size: 30px;">GPT-4:</span> <span class="ml-2 mt-2 mr-2 mb-3"><pre>{{ message.get('content') }}</pre></span>
-                                        </div>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-11 col-md-12">
-                        {{ form.chat_input(class="form-control form-control-lg ", id="chat_input") }}
-                </div>
-                <div class="col-lg-1 col-md-12 mt-lg-1 text-lg-right">
-                    {{ form.submit(class="btn btn-primary") }}
-                </div>
-            </div>
+<div class="container-fluid">
+    <div class="fixed-bottom container" style="background-color: relative; z-index: 1;">
+        <form method="POST" action="{{ url_for('gpt4') }}" style="display: flex; align-items: flex-end; flex-wrap: wrap; padding: 10px;">
+        <div style="flex: 1;">
+            {{ form.chat_input(class="form-control form-control-lg max-height-50", id="chat_input") }}
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Submit</button>
         </form>
     </div>
-</fieldset>
+    
+    <div class="input-display-container">
+        <div>
+        {% if chat %}
+            {% for message in chat %}
+            {% if message['role'] == "user" %}
+                <div class="text chat ml-2 mt-2 mr-2 mb-3">
+                <span style="font-size: 30px;">You:</span> <span class="ml-2 mt-2 mr-2 mb-3"><pre>{{ message.get('content') }}</pre></span>
+                </div>
+            {% elif message['role'] == 'assistant' %}
+                <div class="text chat ml-2 mt-2 mr-2 mb-5">
+                <span style="font-size: 30px;">GPT-4:</span> <span class="ml-2 mt-2 mr-2 mb-3"><pre class="chat-typing">{{ message.get('content') }}</pre></span>
+                </div>
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+
+</div>
+
 {% else %}
 
 <div class="d-flex justify-content-center align-items-center" style="height: 70vh">
-    <h1 style="font-size: 40px"><span class="text text-center">Please <a href="{{ url_for('login') }}">Login</a> or <a href="{{ url_for('signup') }}">Signup</a> to use this Feature </span></h1>
+    <h1 style="font-size: 40px"><span class="text text-center">Please <a href="{{ url_for('login') }}">Login</a> or <a href="{{url_for('signup')}}">Signup</a> to use this Feature </span></h1>
 </div>
-
 
 {% endif %}
 {% endblock main %}
@@ -71,5 +64,28 @@ textarea.addEventListener('keyup', e => {
     } else {
         textarea.style.height = `${scHeight}px`;
     }
+});
+
+$('#chat-form').on('submit', function(event) {
+    event.preventDefault();
+    var user_input = $('input[name=user_input]').val();
+    $.ajax({
+        url: '/gpt4',
+        type: 'POST',
+        data: { chat_input: user_input },
+        dataType: 'json',
+        success: function(response) {
+            var chat_window = $('#chat-window');
+            chat_window.append('<div class="text chat ml-2 mt-2 mr-2 mb-3"><span style="font-size: 30px;">You:</span> <span class="ml-2 mt-2 mr-2 mb-3"><pre>' + user_input + '</pre></span></div>');
+            var typing_indicator = $('<div class="text chat ml-2 mt-2 mr-2 mb-5 chat-typing"><span style="font-size: 30px;">GPT-4:</span> <span class="ml-2 mt-2 mr-2 mb-3"></span></div>');
+            chat_window.append(typing_indicator);
+            scrollToBottom();
+            setTimeout(function() {
+                typing_indicator.replaceWith('<div class="text chat ml-2 mt-2 mr-2 mb-5"><span style="font-size: 30px;">GPT-4:</span> <span class="ml-2 mt-2 mr-2 mb-3"><pre>' + response['response'] + '</pre></span></div>');
+                scrollToBottom();
+            }, 3000);
+            $('input[name=user_input]').val('');  // clear the input field
+        }
+    });
 });
 {% endblock scripts %}
