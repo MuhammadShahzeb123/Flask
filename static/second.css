@@ -7,6 +7,10 @@
     font-weight: bolder;
 }
 
+img {
+    pointer-events: none;
+}
+
 .logo-container {
     display: flex;
     align-items: center; /* add this line to horizontally center the logo */
@@ -81,6 +85,7 @@
     font-family: 'Share Tech Mono', monospace;
 }
 
+
 .data {
     font-size: 15px;
     font-weight: bold;
@@ -121,6 +126,10 @@
     .button-container {
         margin-top: 0px;
     }
+}
+
+.full-page {
+    height: 570px;
 }
 
 .chat {
@@ -184,4 +193,4 @@ pre {
     to {
         width: 100%;
     }
-    }
+}

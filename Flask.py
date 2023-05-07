@@ -10,7 +10,7 @@ gpt = ChatGPT()
 
 @root.route("/home")
 def home():
-    return render_template('home.html', title="HOME", items=Data.dummy, content="Hello World", session=session)
+    return render_template('home.html', title="HOME", content="Hello World", session=session, data=Data)
 
 
 @root.route("/login", methods=["GET", "POST"])
@@ -72,6 +72,10 @@ def default():
 def logout():
     session.clear()
     return redirect('/')
+
+@root.route('/code4', methods=["GET", "POST"])
+def code4():
+    return "<h1>Under Contruction</h1>"
 
 @root.route('/me', methods=['GET', 'POST'])
 def me():

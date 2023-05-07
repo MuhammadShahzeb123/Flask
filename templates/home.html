@@ -1,15 +1,33 @@
+<!DOCTYPE html>
 {% extends 'layout.html' %}
 
 {% block head %}
 {% endblock head %}
 
 {% block main %}
-
-{% for item in items %}
-<div class="result">
-    <h1>{{ item.name }}</h1>
-    <img src="{{ item.pic }}" alt="{{ item.name }}" width=150px height=150px class="Image">
+<div class="full-page">
+    <div class="row align-items-center">
+        <div class="col-md-7">
+            <pre class="text" style="font-size: 400%; margin-top: 10px;">The Ultimate Tools:</pre>
+            <div style="display: flex;align-items:center; justify-content: center; border-radius: 20px;background-color: #cbffd8;">
+                <pre class="text" style="margin-top: 10px;font-size: 400%; color: #333;">Find the Targets</pre>
+            </div>
+            <div class="mt-4">
+                <p class="text-muted font-weight-bold">Transforming OSINT with AI's Power</p>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <img src="{{ url_for('static', filename='animation.gif') }}" alt="Logo" class="img-fluid mt-5" draggable="false">
+        </div>
+    </div>
 </div>
-{% endfor %}
-
+<div class="full-page">
+    <div class="row">
+        <div class="col-md-12 mt-4 text" style="display: flex;align-items:center; justify-content: center; border-radius: 20px;background-color: #cbffd8;">
+            <h1 style="font-size: 320%; ">Find whom you are looking for</h1>
+        </div>
+        <div class="col-md-8">
+        </div>
+    </div>
+</div>
 {% endblock main %}

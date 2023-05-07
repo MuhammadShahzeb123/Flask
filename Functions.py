@@ -44,13 +44,6 @@ class DataBase:
                 username = Column(String, nullable=False, unique=True)
                 email = Column(String, nullable=False, unique=True)
                 password = Column(String, nullable=False, unique=True)
-                chat = relationship("conversations", backref="user", lazy=True)
-        
-        class Conversation(Base):
-                __tablename__ = "conversations"
-                id = Column(Integer, primary_key=True)
-                messages = Column(String, nullable=False)
-                date_created = Column(String(), default=datetime.utcnow)
         
         Base.metadata.create_all(Engine)
         
