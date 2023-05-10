@@ -81,19 +81,16 @@ img {
 
 .text {
     font-size: 22px;
-    font-weight: bold;
     font-family: 'Share Tech Mono', monospace;
 }
 
 .text-120 {
     font-size: 26px;
-    font-weight: bold;
     font-family: 'Share Tech Mono', monospace;
 }
 
 .text-200 {
     font-size: 44px;
-    font-weight: bold;
     font-family: 'Share Tech Mono', monospace;
 }
 .text-250 {
@@ -217,18 +214,19 @@ pre {
 
 .tools-container {
     border-radius: 10px;
-    padding: 20px;
+    margin-top: 20px;
 }
 
 .tools-background {
     background-color: #fd9292;
     border-radius: 15px;
     margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 .products-div {
     display: flex;
-    align-items:center;
+    align-items: center;
     justify-content: center; 
     border-radius: 20px;
     background-color: #cbffd8;
