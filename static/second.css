@@ -85,7 +85,27 @@ img {
     font-family: 'Share Tech Mono', monospace;
 }
 
+.text-120 {
+    font-size: 26px;
+    font-weight: bold;
+    font-family: 'Share Tech Mono', monospace;
+}
 
+.text-200 {
+    font-size: 44px;
+    font-weight: bold;
+    font-family: 'Share Tech Mono', monospace;
+}
+.text-250 {
+    font-size: 55px;
+    font-weight: bold;
+    font-family: 'Share Tech Mono', monospace;
+}
+.text-300 {
+    font-size: 66px;
+    font-weight: bold;
+    font-family: 'Share Tech Mono', monospace;
+}
 .data {
     font-size: 15px;
     font-weight: bold;
@@ -193,4 +213,23 @@ pre {
     to {
         width: 100%;
     }
+}
+
+.tools-container {
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.tools-background {
+    background-color: #fd9292;
+    border-radius: 15px;
+    margin: 0 auto;
+}
+
+.products-div {
+    display: flex;
+    align-items:center;
+    justify-content: center; 
+    border-radius: 20px;
+    background-color: #cbffd8;
 }
